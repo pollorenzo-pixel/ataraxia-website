@@ -1,11 +1,11 @@
 :root {
   --bg: #040407;
   --surface: rgba(255, 255, 255, 0.04);
+  --surface-strong: rgba(255, 255, 255, 0.07);
   --text-primary: #f5f7ff;
   --text-secondary: #c3c9dc;
   --line: rgba(255, 255, 255, 0.14);
-  --accent: #9ca5ff;
-  --accent-strong: #7e88ff;
+  --line-soft: rgba(255, 255, 255, 0.09);
   --focus-ring: #c7cdff;
 
   --container: 72rem;
@@ -18,8 +18,8 @@
   --space-5: clamp(2rem, 1.8rem + 1vw, 3rem);
   --space-6: clamp(3rem, 2.5rem + 2vw, 5rem);
 
-  --h1-size: clamp(2rem, 1.4rem + 3vw, 4.5rem);
-  --body-size: clamp(1rem, 0.96rem + 0.3vw, 1.125rem);
+  --h1-size: clamp(2rem, 1.4rem + 3vw, 4.4rem);
+  --h2-size: clamp(1.45rem, 1.2rem + 1.4vw, 2.35rem);
 }
 
 * {
@@ -33,12 +33,10 @@ body {
 }
 
 body {
-  background: #040407;
   background: radial-gradient(circle at 20% 10%, #12132a 0%, var(--bg) 34%, #010103 100%);
-  color: #f5f7ff;
   color: var(--text-primary);
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: var(--body-size);
+  font-size: clamp(1rem, 0.96rem + 0.3vw, 1.125rem);
   line-height: 1.55;
   text-rendering: optimizeLegibility;
 }
@@ -79,16 +77,18 @@ body {
   min-height: 4rem;
 }
 
-.brand {
+.brand,
+.nav-cta {
   color: var(--text-primary);
   text-decoration: none;
+}
+
+.brand {
   font-weight: 600;
   letter-spacing: 0.02em;
 }
 
 .nav-cta {
-  color: var(--text-primary);
-  text-decoration: none;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 0.5rem 0.95rem;
@@ -105,7 +105,6 @@ body {
   padding-top: max(5rem, 12svh);
   padding-bottom: var(--space-6);
   overflow: hidden;
-  overflow: clip;
 }
 
 .hero-bg,
@@ -141,38 +140,56 @@ body {
     radial-gradient(circle at 60% 60%, rgba(124, 141, 255, 0.56), rgba(70, 44, 140, 0.06) 70%);
   filter: blur(2px) saturate(118%);
   opacity: 0.75;
-  transform: translateZ(0);
   will-change: left, top;
 }
 
-.hero-content {
+.hero-content,
+.section .container {
   position: relative;
   z-index: 2;
-  max-width: 44rem;
 }
 
-.eyebrow {
-  color: #c3c9dc;
+.hero-content {
+  max-width: 52rem;
+}
+
+.eyebrow,
+.section-kicker {
   color: var(--text-secondary);
   margin: 0 0 var(--space-2);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-h1 {
+h1,
+h2,
+h3 {
   margin: 0;
-  font-size: var(--h1-size);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 
-.hero-subtext {
+h1 {
+  font-size: var(--h1-size);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: var(--h2-size);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: 1.05rem;
+}
+
+.hero-subtext,
+.experience-copy {
   margin: var(--space-3) 0 0;
-  color: #c3c9dc;
   color: var(--text-secondary);
-  max-width: 38ch;
+  max-width: 56ch;
 }
 
 .cta-row {
@@ -192,7 +209,7 @@ h1 {
   padding: 0.65rem 1.2rem;
   font-weight: 600;
   letter-spacing: 0.01em;
-  transition: transform 160ms ease, border-color 180ms ease, background-color 180ms ease;
+  transition: transform 160ms ease, border-color 180ms ease;
 }
 
 .btn-primary {
@@ -212,9 +229,41 @@ h1 {
 
 .trust-copy {
   margin: var(--space-3) 0 0;
-  color: #c3c9dc;
   color: var(--text-secondary);
   font-size: 0.93rem;
+}
+
+.section {
+  padding: var(--space-6) 0;
+}
+
+.journey-grid,
+.feature-grid {
+  margin-top: var(--space-4);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.journey-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.feature-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.journey-step,
+.feature-card {
+  background: linear-gradient(160deg, var(--surface-strong), var(--surface));
+  border: 1px solid var(--line-soft);
+  border-radius: 1rem;
+  padding: var(--space-3);
+}
+
+.journey-step p,
+.feature-card p {
+  margin: 0.5rem 0 0;
+  color: var(--text-secondary);
 }
 
 :focus-visible {
@@ -235,6 +284,11 @@ h1 {
   .orb {
     --size: min(75vw, 29rem);
     opacity: 0.66;
+  }
+
+  .journey-grid,
+  .feature-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -258,8 +312,12 @@ h1 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .orb,
-  .btn {
-    transition: none;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
